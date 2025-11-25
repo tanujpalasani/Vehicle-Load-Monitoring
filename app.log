@@ -1,0 +1,82 @@
+ 2025-04-05 17:33:31,948 - __main__ - INFO - ML models loaded successfully
+2025-04-05 17:33:31,951 - __main__ - INFO - Database connection established
+2025-04-05 17:33:31,951 - __main__ - INFO - Database already initialized
+2025-04-05 17:33:31,951 - __main__ - INFO - Database connection closed
+2025-04-05 17:33:31,951 - __main__ - INFO - Starting Flask application
+2025-04-05 17:33:31,963 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-05 17:33:31,963 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-05 17:33:31,964 - werkzeug - INFO -  * Restarting with stat
+2025-04-05 17:33:32,902 - __main__ - INFO - ML models loaded successfully
+2025-04-05 17:33:32,903 - __main__ - INFO - Database connection established
+2025-04-05 17:33:32,904 - __main__ - INFO - Database already initialized
+2025-04-05 17:33:32,904 - __main__ - INFO - Database connection closed
+2025-04-05 17:33:32,904 - __main__ - INFO - Starting Flask application
+2025-04-05 17:33:32,910 - werkzeug - WARNING -  * Debugger is active!
+2025-04-05 17:33:32,911 - werkzeug - INFO -  * Debugger PIN: 358-786-414
+2025-04-05 17:34:07,600 - __main__ - INFO - ML models loaded successfully
+2025-04-05 17:34:07,602 - __main__ - INFO - Database connection established
+2025-04-05 17:34:07,602 - __main__ - INFO - Database already initialized
+2025-04-05 17:34:07,603 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:07,603 - __main__ - INFO - Starting Flask application
+2025-04-05 17:34:07,616 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-05 17:34:07,616 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-05 17:34:07,617 - werkzeug - INFO -  * Restarting with stat
+2025-04-05 17:34:08,484 - __main__ - INFO - ML models loaded successfully
+2025-04-05 17:34:08,486 - __main__ - INFO - Database connection established
+2025-04-05 17:34:08,487 - __main__ - INFO - Database already initialized
+2025-04-05 17:34:08,487 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:08,487 - __main__ - INFO - Starting Flask application
+2025-04-05 17:34:08,492 - werkzeug - WARNING -  * Debugger is active!
+2025-04-05 17:34:08,494 - werkzeug - INFO -  * Debugger PIN: 358-786-414
+2025-04-05 17:34:11,923 - __main__ - INFO - Database connection established
+2025-04-05 17:34:11,924 - __main__ - INFO - Dashboard stats retrieved successfully
+2025-04-05 17:34:11,933 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:11,934 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:11] "GET / HTTP/1.1" 200 -
+2025-04-05 17:34:11,975 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:34:11,983 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-05 17:34:39,077 - __main__ - INFO - Database connection established
+2025-04-05 17:34:39,079 - __main__ - INFO - Dashboard stats retrieved successfully
+2025-04-05 17:34:39,080 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:39,081 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:39] "GET / HTTP/1.1" 200 -
+2025-04-05 17:34:39,099 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:39] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:34:39,100 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:39] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-05 17:34:44,283 - __main__ - INFO - Database connection established
+2025-04-05 17:34:44,284 - __main__ - INFO - Predictions retrieved successfully
+2025-04-05 17:34:44,298 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:44,299 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:44] "GET /predictions HTTP/1.1" 200 -
+2025-04-05 17:34:44,318 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:34:46,560 - __main__ - INFO - Database connection established
+2025-04-05 17:34:46,561 - __main__ - INFO - Predictions retrieved successfully
+2025-04-05 17:34:46,563 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:46,564 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:46] "GET /predictions HTTP/1.1" 200 -
+2025-04-05 17:34:46,578 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:46] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:34:46,874 - __main__ - INFO - Database connection established
+2025-04-05 17:34:46,876 - __main__ - INFO - Dashboard stats retrieved successfully
+2025-04-05 17:34:46,877 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:46,878 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:46] "GET / HTTP/1.1" 200 -
+2025-04-05 17:34:46,894 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:46] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:34:46,894 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:46] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-05 17:34:47,343 - __main__ - INFO - Database connection established
+2025-04-05 17:34:47,344 - __main__ - INFO - Predictions retrieved successfully
+2025-04-05 17:34:47,345 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:47,346 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:47] "GET /predictions HTTP/1.1" 200 -
+2025-04-05 17:34:47,362 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:34:49,192 - __main__ - INFO - Database connection established
+2025-04-05 17:34:49,194 - __main__ - INFO - Predictions retrieved successfully
+2025-04-05 17:34:49,195 - __main__ - INFO - Database connection closed
+2025-04-05 17:34:49,196 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:49] "GET /predictions HTTP/1.1" 200 -
+2025-04-05 17:34:49,212 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 17:34:49] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-05 17:35:10,881 - werkzeug - INFO -  * Detected change in 'C:\\Users\\tanuj\\Desktop\\Ml Vehicle Project\\app.py', reloading
+2025-04-05 17:35:10,980 - werkzeug - INFO -  * Restarting with stat
+2025-04-05 17:35:15,195 - werkzeug - INFO -  * Restarting with stat
+2025-04-05 17:35:16,067 - __main__ - INFO - ML models loaded successfully
+2025-04-05 17:35:16,069 - __main__ - INFO - Database connection established
+2025-04-05 17:35:16,069 - __main__ - INFO - Database already initialized
+2025-04-05 17:35:16,069 - __main__ - INFO - Database connection closed
+2025-04-05 17:35:16,070 - __main__ - INFO - Starting Flask application
+2025-04-05 17:35:16,075 - werkzeug - WARNING -  * Debugger is active!
+2025-04-05 17:35:16,076 - werkzeug - INFO -  * Debugger PIN: 358-786-414
+2025-04-05 17:35:18,180 - werkzeug - INFO -  * Detected change in 'C:\\Users\\tanuj\\Desktop\\Ml Vehicle Project\\app.py', reloading
+2025-04-05 17:35:18,279 - werkzeug - INFO -  * Restarting with stat
