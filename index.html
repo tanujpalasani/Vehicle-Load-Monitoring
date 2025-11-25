@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Load Monitoring System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar Toggle Button (Mobile) -->
+    <button class="sidebar-toggle d-md-none">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="sidebar-brand">
+                <i class="fas fa-truck-loading"></i>
+                <span>VLMS</span>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-item">
+                <a href="/" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/predictions" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    Prediction History
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    Help
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section mb-4">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-truck-loading me-2"></i>
+                    Vehicle Load Monitoring System
+                </h1>
+                <p class="text-center text-muted">Monitor and analyze vehicle loads in real-time</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stats-card">
+                        <div class="card-body">
+                            <div class="stats-icon bg-primary">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h3 class="stats-number">{{ total_vehicles }}</h3>
+                            <p class="stats-text">Total Vehicles</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stats-card">
+                        <div class="card-body">
+                            <div class="stats-icon bg-success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3 class="stats-number">{{ normal_loads }}</h3>
+                            <p class="stats-text">Normal Loads</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stats-card">
+                        <div class="card-body">
+                            <div class="stats-icon bg-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3 class="stats-number">{{ overloaded }}</h3>
+                            <p class="stats-text">Overloaded</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card stats-card">
+                        <div class="card-body">
+                            <div class="stats-icon bg-danger">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3 class="stats-number">{{ anomalies }}</h3>
+                            <p class="stats-text">Anomalies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Row -->
+            <div class="row">
+                <!-- Vehicle Data Input -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card glass-effect h-100">
+                        <div class="card-header">
+                            <h4>
+                                <i class="fas fa-clipboard-list me-2"></i>
+                                Vehicle Data Input
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="vehicleForm">
+                                <div class="mb-3">
+                                    <label for="vehicleType" class="form-label">
+                                        <i class="fas fa-car me-2"></i>Vehicle Type
+                                    </label>
+                                    <select class="form-select" id="vehicleType" required>
+                                        <option value="">Select Vehicle Type</option>
+                                        <option value="Bus">🚌 Bus</option>
+                                        <option value="Car">🚗 Car</option>
+                                        <option value="SUV">🚙 SUV</option>
+                                        <option value="Truck">🚛 Truck</option>
+                                        <option value="Van">🚐 Van</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="speed" class="form-label">
+                                            <i class="fas fa-tachometer-alt me-2"></i>Speed (km/h)
+                                        </label>
+                                        <input type="number" step="0.1" min="0" class="form-control" id="speed" required 
+                                            placeholder="Enter speed">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="axleCount" class="form-label">
+                                            <i class="fas fa-cog me-2"></i>Axle Count
+                                        </label>
+                                        <input type="number" step="1" min="1" class="form-control" id="axleCount" required
+                                            placeholder="Enter axles">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="avgAxleLoad" class="form-label">
+                                            <i class="fas fa-weight me-2"></i>Avg Load (kg)
+                                        </label>
+                                        <input type="number" step="0.1" min="0" class="form-control" id="avgAxleLoad" required
+                                            placeholder="Enter load">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="suspensionPressure" class="form-label">
+                                            <i class="fas fa-compress-arrows-alt me-2"></i>Pressure
+                                        </label>
+                                        <input type="number" step="0.1" min="0" class="form-control" id="suspensionPressure" required
+                                            placeholder="Enter PSI">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="maxLoadCapacity" class="form-label">
+                                        <i class="fas fa-balance-scale me-2"></i>Max Capacity (kg)
+                                    </label>
+                                    <input type="number" step="0.1" min="0.1" class="form-control" id="maxLoadCapacity" required
+                                        placeholder="Enter max capacity">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-calculator me-2"></i>Analyze Load
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Analysis Results -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card glass-effect h-100">
+                        <div class="card-header">
+                            <h4>
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Analysis Results
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="results" style="display: none;">
+                                <div class="alert mb-3" id="loadStatus" role="alert"></div>
+                                <div class="alert mb-3" id="anomalyStatus" role="alert"></div>
+                                <div class="alert mb-3" id="buzzerAlert" role="alert"></div>
+                                <div class="mt-4 text-center">
+                                    <h5>
+                                        <i class="fas fa-weight-hanging me-2"></i>
+                                        Predicted Load
+                                    </h5>
+                                    <div class="status-indicator">
+                                        <p id="predictedLoad" class="h3 mb-0"></p>
+                                    </div>
+                                </div>
+                                <!-- Load Distribution Chart -->
+                                <div class="mt-4">
+                                    <canvas id="loadDistributionChart"></canvas>
+                                </div>
+                            </div>
+                            <div id="loadingSpinner" style="display: none;">
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <p class="text-center mt-3">Analyzing vehicle data...</p>
+                            </div>
+                            <div id="initialMessage" class="text-center text-muted mt-4">
+                                <i class="fas fa-arrow-left fa-2x mb-3"></i>
+                                <p>Enter vehicle details to analyze load</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card glass-effect">
+                        <div class="card-header">
+                            <h4>
+                                <i class="fas fa-history me-2"></i>
+                                Recent Activity
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Vehicle Type</th>
+                                            <th>Speed</th>
+                                            <th>Load Status</th>
+                                            <th>Anomaly</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for pred in recent_predictions %}
+                                        <tr>
+                                            <td>{{ pred['timestamp'] }}</td>
+                                            <td>
+                                                <i class="fas fa-{{ 'truck' if pred['vehicle_type'] in ['Truck', 'Van'] else 'car' }} me-2"></i>
+                                                {{ pred['vehicle_type'] }}
+                                            </td>
+                                            <td>{{ "%.2f"|format(pred['speed']) }} km/h</td>
+                                            <td>
+                                                <span class="badge {% if pred['overloaded_status'] == 'Overloaded' %}bg-danger{% else %}bg-success{% endif %}">
+                                                    {{ pred['overloaded_status'] }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge {% if pred['anomaly_status'] == 'Anomaly' %}bg-warning{% else %}bg-success{% endif %}">
+                                                    {{ pred['anomaly_status'] }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        document.querySelector('.sidebar-toggle')?.addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('show');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.querySelector('.sidebar-toggle');
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !toggle.contains(e.target)) {
+                sidebar.classList.remove('show');
+            }
+        });
+
+        // Initialize Load Distribution Chart
+        function initializeChart(predictedLoad, maxLoad) {
+            const ctx = document.getElementById('loadDistributionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Current Load', 'Remaining Capacity'],
+                    datasets: [{
+                        data: [predictedLoad, Math.max(0, maxLoad - predictedLoad)],
+                        backgroundColor: [
+                            predictedLoad > maxLoad ? '#e74c3c' : '#27ae60',
+                            '#ecf0f1'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

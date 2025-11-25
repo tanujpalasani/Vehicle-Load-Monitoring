@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History - Vehicle Load Monitoring System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Sidebar Toggle Button (Mobile) -->
+    <button class="sidebar-toggle d-md-none">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="sidebar-brand">
+                <i class="fas fa-truck-loading"></i>
+                <span>VLMS</span>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-item">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/predictions" class="nav-link active">
+                    <i class="fas fa-history"></i>
+                    Prediction History
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    Help
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h1 class="text-center mb-4">
+                <i class="fas fa-history me-2"></i>
+                Prediction History
+            </h1>
+            <div class="mb-3">
+                <a href="/" class="btn btn-primary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Back to Prediction Form
+                </a>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-table me-2"></i>Recent Predictions</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-clock me-2"></i>Time</th>
+                                    <th><i class="fas fa-car me-2"></i>Vehicle Type</th>
+                                    <th><i class="fas fa-tachometer-alt me-2"></i>Speed (km/h)</th>
+                                    <th><i class="fas fa-cog me-2"></i>Axle Count</th>
+                                    <th><i class="fas fa-weight me-2"></i>Avg Load (kg)</th>
+                                    <th><i class="fas fa-weight-hanging me-2"></i>Predicted (kg)</th>
+                                    <th><i class="fas fa-check-circle me-2"></i>Status</th>
+                                    <th><i class="fas fa-exclamation-triangle me-2"></i>Anomaly</th>
+                                    <th><i class="fas fa-bell me-2"></i>Buzzer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pred in predictions %}
+                                <tr class="prediction-row">
+                                    <td>{{ pred['timestamp'] }}</td>
+                                    <td>
+                                        <i class="fas fa-{{ 'truck' if pred['vehicle_type'] in ['Truck', 'Van'] else 'car' }} me-2"></i>
+                                        {{ pred['vehicle_type'] }}
+                                    </td>
+                                    <td>{{ "%.2f"|format(pred['speed']) }}</td>
+                                    <td>{{ "%.2f"|format(pred['axle_count']) }}</td>
+                                    <td>{{ "%.2f"|format(pred['avg_axle_load']) }}</td>
+                                    <td>{{ "%.2f"|format(pred['predicted_load']) }}</td>
+                                    <td>
+                                        <span class="badge {% if pred['overloaded_status'] == 'Overloaded' %}bg-danger{% else %}bg-success{% endif %}">
+                                            <i class="fas fa-{{ 'exclamation-circle' if pred['overloaded_status'] == 'Overloaded' else 'check-circle' }} me-1"></i>
+                                            {{ pred['overloaded_status'] }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge {% if pred['anomaly_status'] == 'Anomaly' %}bg-warning{% else %}bg-success{% endif %}">
+                                            <i class="fas fa-{{ 'exclamation-triangle' if pred['anomaly_status'] == 'Anomaly' else 'check-circle' }} me-1"></i>
+                                            {{ pred['anomaly_status'] }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge {% if pred['buzzer_alert'] == 'ON' %}bg-danger{% else %}bg-success{% endif %}">
+                                            <i class="fas fa-bell{{ '-slash' if pred['buzzer_alert'] == 'OFF' else '' }} me-1"></i>
+                                            {{ pred['buzzer_alert'] }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add animation to table rows
+        document.querySelectorAll('.prediction-row').forEach((row, index) => {
+            row.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s both`;
+        });
+
+        // Sidebar Toggle Functionality
+        document.querySelector('.sidebar-toggle')?.addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('show');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.querySelector('.sidebar-toggle');
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !toggle.contains(e.target)) {
+                sidebar.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html> 
